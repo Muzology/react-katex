@@ -41,6 +41,7 @@ const createMathComponent = (Component, { displayMode }) => {
         displayMode,
         errorColor,
         throwOnError: !!renderError
+        // ...this.props.katexOptions
       });
     }
 
@@ -64,10 +65,16 @@ const createMathComponent = (Component, { displayMode }) => {
     children: PropTypes.string,
     errorColor: PropTypes.string,
     math: PropTypes.string,
+    katexOptions: PropTypes.object,
     renderError: PropTypes.func
+  };
+
+  MathComponent.defaultProps = {
+    katexOptions: {}
   };
 
   return MathComponent;
 };
+
 
 export default createMathComponent;

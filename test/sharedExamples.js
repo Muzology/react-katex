@@ -17,7 +17,7 @@ export default (Component, { wrapperTag, displayMode }) => {
       const math = shallow(<Component math={sumFormula} />);
 
       expect(math.html()).to.equal(
-        `<${wrapperTag}>${ KaTeX.renderToString(sumFormula, { displayMode }) }</${wrapperTag}>`
+        `<${wrapperTag}>${KaTeX.renderToString(sumFormula, { displayMode })}</${wrapperTag}>`
       );
     });
 
@@ -29,29 +29,29 @@ export default (Component, { wrapperTag, displayMode }) => {
       });
 
       expect(math.html()).to.equal(
-        `<${wrapperTag}>${ KaTeX.renderToString(integralFormula, { displayMode }) }</${wrapperTag}>`
+        `<${wrapperTag}>${KaTeX.renderToString(integralFormula, { displayMode })}</${wrapperTag}>`
       );
     });
   });
 
   context('when passing the formula as child', () => {
     it('renders correctly', () => {
-      const math = shallow(<Component>{ integralFormula }</Component>);
+      const math = shallow(<Component>{integralFormula}</Component>);
 
       expect(math.html()).to.equal(
-        `<${wrapperTag}>${ KaTeX.renderToString(integralFormula, { displayMode }) }</${wrapperTag}>`
+        `<${wrapperTag}>${KaTeX.renderToString(integralFormula, { displayMode })}</${wrapperTag}>`
       );
     });
 
     it('updates after props are updated', () => {
-      const math = shallow(<Component>{ integralFormula }</Component>);
+      const math = shallow(<Component>{integralFormula}</Component>);
 
       math.setProps({
         children: sumFormula
       });
 
       expect(math.html()).to.equal(
-        `<${wrapperTag}>${ KaTeX.renderToString(sumFormula, { displayMode }) }</${wrapperTag}>`
+        `<${wrapperTag}>${KaTeX.renderToString(sumFormula, { displayMode })}</${wrapperTag}>`
       );
 
     });
@@ -71,7 +71,7 @@ export default (Component, { wrapperTag, displayMode }) => {
       });
 
       expect(math.html()).to.equal(
-        `<${wrapperTag}>${ KaTeX.renderToString(integralFormula, { displayMode }) }</${wrapperTag}>`
+        `<${wrapperTag}>${KaTeX.renderToString(integralFormula, { displayMode })}</${wrapperTag}>`
       );
     });
 
@@ -116,7 +116,12 @@ export default (Component, { wrapperTag, displayMode }) => {
 
       context('when error is caused by an invalid prop type', () => {
         it('renders error message', () => {
-          const math = shallow(<Component displayMode math={123} />);
+          const math = shallow(
+            <Component
+              displayMode
+              math={123}
+            />
+          );
 
           expect(math.html()).to.equal(
             `<${wrapperTag}>KaTeX can only parse string typed expression</${wrapperTag}>`
@@ -131,7 +136,7 @@ export default (Component, { wrapperTag, displayMode }) => {
           );
 
           expect(math.html()).to.equal(
-            `<${wrapperTag}>KaTeX parse error: Expected '}', got 'EOF' at end of input: \\sum_{</${wrapperTag}>`
+            `<${wrapperTag}><span class="katex-error" title="ParseError: KaTeX parse error: Expected &#x27;}&#x27;, got &#x27;EOF&#x27; at end of input: \\sum_{" style="color:#cc0000">\\sum_{</span></${wrapperTag}>`
           );
         });
       });
@@ -154,7 +159,10 @@ export default (Component, { wrapperTag, displayMode }) => {
       context('when error is caused while parsing math expression', () => {
         it('still uses custom handler', () => {
           const math = shallow(
-            <Component math={incompleteFormula} renderError={renderError} />
+            <Component
+              math={incompleteFormula}
+              renderError={renderError}
+            />
           );
 
           expect(math.html()).to.equal(

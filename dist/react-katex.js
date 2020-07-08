@@ -127,6 +127,7 @@ var createMathComponent = function createMathComponent(Component, _ref) {
           displayMode: displayMode,
           errorColor: errorColor,
           throwOnError: !!renderError
+          // ...this.props.katexOptions
         });
       }
     }, {
@@ -152,7 +153,12 @@ var createMathComponent = function createMathComponent(Component, _ref) {
     children: PropTypes.string,
     errorColor: PropTypes.string,
     math: PropTypes.string,
+    katexOptions: PropTypes.object,
     renderError: PropTypes.func
+  };
+
+  MathComponent.defaultProps = {
+    katexOptions: {}
   };
 
   return MathComponent;
